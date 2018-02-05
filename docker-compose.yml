@@ -1,0 +1,40 @@
+version: "2"
+services:
+  # Service for database with MongoDB
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    volumes:
+      - ./mongo-data:/data/db
+    restart: always
+    ports: 
+      - 27017:27017
+    networks: 
+      - challenge
+  # Service for backend with NodeJs
+  backend:
+    image: node
+    container_name: backend
+    volumes:
+      - ./backend:/usr/src/app
+    working_dir: /usr/src/app
+    command: npm start
+    ports: 
+      - 3000:3000
+    networks: 
+      - challenge
+  # Service for frontend with AngularJs
+  frontend:
+    image: node
+    container_name: frontend
+    volumes:
+      - ./frontend:/usr/src/app
+    working_dir: /usr/src/app
+    command: npm start
+    ports: 
+      - 80:80
+    networks: 
+      - challenge
+networks:
+  challenge:
+    driver: bridge
