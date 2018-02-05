@@ -7,13 +7,15 @@
     "angular": "^1.6.9",
     "bootstrap": "^4.0.0",
     "http-server": "^0.11.1",
-    "jquery": "^1.9.1",
+    "jquery": "^3.0.0",
+    "npm": "^5.6.0",
     "popper.js": "^1.12.9",
+    "start": "^5.1.0",
     "sweetalert": "^2.1.0"
   },
   "devDependencies": {},
   "scripts": {
-    "start": "http-server -a 0.0.0.0 -p 80",
+    "start": "npm install ; http-server -a 0.0.0.0 -p 80",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Vinicius Santos",

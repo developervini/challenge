@@ -1,9 +1,9 @@
 version: "2"
 services:
   # Service for database with MongoDB
-  mongodb:
+  mongodb-poatek:
     image: mongo
-    container_name: mongodb
+    container_name: mongodb-poatek
     volumes:
       - ./mongo-data:/data/db
     restart: always
@@ -12,9 +12,9 @@ services:
     networks: 
       - challenge
   # Service for backend with NodeJs
-  backend:
+  backend-poatek:
     image: node
-    container_name: backend
+    container_name: backend-poatek
     volumes:
       - ./backend:/usr/src/app
     working_dir: /usr/src/app
@@ -24,9 +24,9 @@ services:
     networks: 
       - challenge
   # Service for frontend with AngularJs
-  frontend:
+  frontend-poatek:
     image: node
-    container_name: frontend
+    container_name: frontend-poatek
     volumes:
       - ./frontend:/usr/src/app
     working_dir: /usr/src/app

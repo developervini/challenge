@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "npm install; node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Vinicius Santos",
@@ -16,6 +16,8 @@
     "fs": "0.0.1-security",
     "jwt-simple": "^0.5.1",
     "moment": "^2.20.1",
-    "mongoose": "^5.0.3"
+    "mongoose": "^5.0.3",
+    "npm": "^5.6.0",
+    "start": "^5.1.0"
   }
 }
