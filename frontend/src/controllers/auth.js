@@ -1,6 +1,6 @@
 
 angular.module('poatek')
-    .controller('AuthController', function ($scope, $http, $location) {
+    .controller('AuthController', function ($scope, $http, $window) {
         $scope.user = {
             username: null,
             password: null
@@ -19,7 +19,7 @@ angular.module('poatek')
                             username: response.data.user.name,
                             token: response.data.token
                         });
-                        $location.path('/home');
+                        $window.location.href  = '/#!/home';
                     },
                     function (error) {
                         swual('', error, 'danger');

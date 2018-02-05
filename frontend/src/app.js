@@ -9,8 +9,8 @@ poatek.config(['$routeProvider',
                 templateUrl: 'src/views/login.html',
                 controller: 'AuthController',
                 resolve: {
-                    "check": function (auth, $window) {
-                        if (auth) {
+                    check: function (auth, $window) {
+                        if (auth.auth()) {
                             $window.location.href = '/#!/home';
                         }
                     }
@@ -20,9 +20,9 @@ poatek.config(['$routeProvider',
                 templateUrl: 'src/views/home.html',
                 controller: 'HomeController',
                 resolve: {
-                    "check": function (auth, $window) {
-                        if (!auth) {
-                            $window.location.href = '/';
+                    check: function (auth, $window) {
+                        if (!auth.auth()) {
+                            $window.location.href = '/#!/';
                         }
                     }
                 }
@@ -31,9 +31,9 @@ poatek.config(['$routeProvider',
                 templateUrl: 'src/views/transactionList.html',
                 controller: 'TransactionListController',
                 resolve: {
-                    "check": function (auth, $window) {
-                        if (!auth) {
-                            $window.location.href = '/';
+                    check: function (auth, $window) {
+                        if (!auth.auth()) {
+                            $window.location.href = '/#!/';
                         }
                     }
                 }
@@ -42,10 +42,18 @@ poatek.config(['$routeProvider',
                 templateUrl: 'src/views/transactionNew.html',
                 controller: 'TransactionNewController',
                 resolve: {
-                    "check": function (auth, $window) {
-                        if (!auth) {
-                            $window.location.href = '/';
+                    check: function (auth, $window) {
+                        if (!auth.auth()) {
+                            $window.location.href = '/#!/';
                         }
+                    }
+                }
+            })
+            .when('/logoff', {
+                resolve: {
+                    logoff: function ($window) {
+                        localStorage.removeItem('currentUser');
+                        $window.location.href = '/#!/home';
                     }
                 }
             })
@@ -58,9 +66,14 @@ poatek.config(['$routeProvider',
 // https://ciphertrick.com/2014/12/14/check-condition-before-loading-route-in-angular-js/
 
 poatek.factory('auth', function () {
-    if (localStorage.getItem('currentUser')) {
-        return true;
-    } else {
-        return false;
+    return {
+        auth: function () {
+            if (localStorage.getItem('currentUser')) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
+
 });
