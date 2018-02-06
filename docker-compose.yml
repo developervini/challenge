@@ -4,9 +4,12 @@ services:
   mongodb-poatek:
     image: mongo
     container_name: mongodb-poatek
+    environment:
+      - MONGODB_USERNAME=root
+      - MONGODB_PASSWORD=password123
+      - MONGODB_DATABASE=poatek
     volumes:
       - ./mongo-data:/data/db
-    restart: always
     ports: 
       - 27017:27017
     networks: 
@@ -19,6 +22,8 @@ services:
       - ./backend:/usr/src/app
     working_dir: /usr/src/app
     command: npm start
+    depends_on: 
+      - mongodb-poatek
     ports: 
       - 3000:3000
     networks: 
@@ -31,6 +36,8 @@ services:
       - ./frontend:/usr/src/app
     working_dir: /usr/src/app
     command: npm start
+    depends_on: 
+      - backend-poatek
     ports: 
       - 80:80
     networks: 

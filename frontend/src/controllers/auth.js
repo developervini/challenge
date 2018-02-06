@@ -15,14 +15,15 @@ angular.module('poatek')
             if (checkFields($scope.user)) {
                 $http.post('http://localhost:3000/login', $scope.user, config).then(
                     function (response) {
-                        localStorage.setItem('currentUser', {
-                            username: response.data.user.name,
-                            token: response.data.token
-                        });
-                        $window.location.href  = '/#!/home';
+                        if (response.data.token) {
+                            localStorage.setItem('currentUser', response.data.token);
+                            $window.location.href = '/#!/home';
+                        } else {
+                            swal('Warning', response.data.msg, 'warning');
+                        }
                     },
                     function (error) {
-                        swual('', error, 'danger');
+                        swal('Error', error, 'danger');
 
                     });
             }
