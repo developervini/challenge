@@ -1,6 +1,6 @@
 'use strict';
 
-var poatek = angular.module('poatek', ['ngRoute']);
+var poatek = angular.module('poatek', ['ngRoute', 'rw.moneymask']);
 
 poatek.config(['$routeProvider',
     function ($routeProvider) {
@@ -39,8 +39,19 @@ poatek.config(['$routeProvider',
                 }
             })
             .when('/transaction-new', {
-                templateUrl: 'src/views/transactionNew.html',
-                controller: 'TransactionNewController',
+                templateUrl: 'src/views/transactionForm.html',
+                controller: 'TransactionFormController',
+                resolve: {
+                    check: function (auth, $window) {
+                        if (!auth.auth()) {
+                            $window.location.href = '/#!/';
+                        }
+                    }
+                }
+            })
+            .when('/transaction-edit/:id', {
+                templateUrl: 'src/views/transactionForm.html',
+                controller: 'TransactionFormController',
                 resolve: {
                     check: function (auth, $window) {
                         if (!auth.auth()) {

@@ -4,11 +4,9 @@ const ObjectId = Schema.ObjectId
 
 var user = new Schema(
     {
-        _id: ObjectId,
         username: String,
         password: String,
         user_type: String
-
     }
 )
 

@@ -11,10 +11,10 @@ angular.module('poatek')
 
         $http.get('http://localhost:3000/transaction', config).then(
             function (response) {
-                if (response.data.msg) {
-                    $scope.message = response.data.msg;
+                if (response.data.transactions.length > 0) {
+                    $scope.transactions = response.data.transactions;
                 } else {
-                    swal('Warning', response.data.msg, 'warning');
+                    $scope.transactions = 'Not found results';
                 }
             },
             function (error) {

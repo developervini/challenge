@@ -1,4 +1,86 @@
-<div ng-include="'src/views/layout/navbar.html'"></div>
-<div class="container">
-    {{message}}
-</div>
+<header>
+    <div ng-include="'src/views/layout/navbar.html'"></div>
+</header>
+<main role="main" class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h3 class="mt-5">{{message.welcome}}</h3>
+            <p>{{message.description}}</p>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-sm-12">
+            <div class="card">
+                <h5 class="card-header">
+                    Current day
+                </h5>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Description</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Payment Type</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="transaction in transactions">
+                                <td>
+                                    <a ng-href="/#!/transaction-edit/{{transaction._id}}"> {{ transaction.description }} </a>
+                                </td>
+                                <td>{{ transaction.amount }}</td>
+                                <td>{{ transaction.payment_type }}</td>
+                                <td>{{ transaction.date|date:'MM/dd/yy HH:mm:ss' }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-danger btn-sm" aria-label="Left Align">
+                                        <span class="fa fa-trash-o fa-lg" aria-hidden="true"></span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="row mt-5">
+        <div class="col-sm-12">
+            <div class="card">
+                <h5 class="card-header">
+                    Last 30 days
+                </h5>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Description</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Payment Type</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="transaction in transactions">
+                                <td>
+                                    <a ng-href="/#!/transaction-edit/{{transaction._id}}"> {{ transaction.description }} </a>
+                                </td>
+                                <td>{{ transaction.amount }}</td>
+                                <td>{{ transaction.payment_type }}</td>
+                                <td>{{ transaction.date|date:'MM/dd/yy HH:mm:ss' }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-danger btn-sm" aria-label="Left Align">
+                                        <span class="fa fa-trash-o fa-lg" aria-hidden="true"></span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<div ng-include="'src/views/layout/footer.html'"></div>

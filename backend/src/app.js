@@ -38,10 +38,6 @@ app.use('/:controller', function (req, res, next) {
     }
 })
 
-app.get('/:controller', function (req, res) {
-    req.controller.list(req, res)
-})
-
 app.post('/login', (req, res) => {
     fs.stat('src/controllers/user.js', function (err, stat) {
         if (err == null) {
@@ -49,6 +45,22 @@ app.post('/login', (req, res) => {
             req.controller.login(req, res)
         }
     })
+})
+
+app.get('/:controller', function (req, res) {
+    req.controller.list(req, res)
+})
+
+app.post('/:controller', function (req, res) {
+    req.controller.create(req, res)
+})
+
+app.get('/:controller/:id', function (req, res) {
+    req.controller.find(req, res)
+})
+
+app.put('/:controller/:id', function (req, res) {
+    req.controller.edit(req, res)
 })
 
 module.exports = app

@@ -1,0 +1,44 @@
+<header>
+    <div ng-include="'src/views/layout/navbar.html'"></div>
+</header>
+<main role="main" class="container">
+    <div class="row mt-5">
+        <div class="col-sm-12">
+            <div class="card">
+                <h5 class="card-header">
+                    {{message}}
+                </h5>
+                <div class="card-body">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label>Description</label>
+                                <textarea class="form-control" rows="3" ng-model="transaction.description"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputAddress">Amount</label>
+                                <input type="text" class="form-control" name="price" ng-model="transaction.amount" money-mask money-mask-prepend="$" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputState">Payment Type</label>
+                                <select id="inputState" class="form-control" ng-value="transaction.payment_type" ng-model="transaction.payment_type">
+                                    <option value="1">Credit Card</option>
+                                    <option value="2">Money</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <button type="button" ng-click="save()" class="btn btn-primary">Save</button>
+                                <button type="button" ng-click="cancel()" class="btn btn-danger">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<div ng-include="'src/views/layout/footer.html'"></div>
