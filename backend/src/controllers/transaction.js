@@ -12,7 +12,7 @@ class TransactionController {
                 })
             } else {
                 res.json({
-                    msg: 'Not found result',
+                    msg: 'Not found transaction'
                 })
             }
         })
@@ -29,7 +29,7 @@ class TransactionController {
                 })
             } else {
                 res.json({
-                    msg: 'Not found results',
+                    msg: 'Not found results'
                 })
             }
         })
@@ -41,7 +41,7 @@ class TransactionController {
                 res.status(500).json(err)
 
             res.json({
-                msg: 'Transaction saved',
+                msg: 'Saved transaction'
             })
         })
     }
@@ -52,8 +52,26 @@ class TransactionController {
                 res.status(500).json(err)
 
             res.json({
-                msg: 'Transaction updated',
+                msg: 'Updated transaction'
             })
+        });
+    }
+
+    delete(req, res) {
+        Transaction.remove({ _id: ObjectId(req.params.id) }, function (err, result) {
+            if (err)
+                res.status(500).json(err)
+            console.log(result)
+            if(result.n > 0){
+                res.json({
+                    msg: 'Deleted transaction'
+                })
+            }else{
+                res.json({
+                    msg: 'Not found transaction'
+                })
+            }
+            
         });
     }
 }

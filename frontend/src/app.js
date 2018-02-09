@@ -1,6 +1,6 @@
 'use strict';
 
-var poatek = angular.module('poatek', ['ngRoute', 'rw.moneymask']);
+var poatek = angular.module('poatek', ['ngRoute', 'rw.moneymask', 'ngMessages']);
 
 poatek.config(['$routeProvider',
     function ($routeProvider) {
@@ -87,4 +87,18 @@ poatek.factory('auth', function () {
         }
     }
 
+});
+
+// https://stackoverflow.com/questions/34415617/how-to-filter-data-by-date-range-in-angularjs
+
+poatek.filter("dateFilter", function () {
+    return function datefilter(items, from, to) {
+        var result = [];
+        angular.forEach(items, function (value) {
+            if (Date.parse(value.date) > Date.parse(from) && Date.parse(to) > Date.parse(value.date)) {
+                result.push(value);
+            }
+        });
+        return result;
+    };
 });

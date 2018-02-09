@@ -9,32 +9,79 @@
                     Transaction List
                 </h5>
                 <div class="card-body">
-                    <table class="table table-bordered">
-                        <thead class="thead-light">
-                            <tr>
-                                <th scope="col">Description</th>
-                                <th scope="col">Amount</th>
-                                <th scope="col">Payment Type</th>
-                                <th scope="col">Date</th>
-                                <th scope="col">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="transaction in transactions">
-                                <td>
-                                    <a ng-href="/#!/transaction-edit/{{transaction._id}}"> {{ transaction.description }} </a>
-                                </td>
-                                <td>{{ transaction.amount }}</td>
-                                <td>{{ transaction.payment_type }}</td>
-                                <td>{{ transaction.date|date:'MM/dd/yy HH:mm:ss' }}</td>
-                                <td>
-                                    <button type="button" class="btn btn-danger btn-sm" aria-label="Left Align">
-                                        <span class="fa fa-trash-o fa-lg" aria-hidden="true"></span>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="row">
+                        <div class="form-group col-md-3">
+                            <label for="inputState">Payment Type</label>
+                            <select id="inputState" class="form-control" ng-model="search.payment_type">
+                                <option></option>
+                                <option value="1">Credit Card</option>
+                                <option value="2">Money</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label for="inputState">From</label>
+                            <input type="date" class="form-control" ng-model="from">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="inputState">To</label>
+                            <input type="date" class="form-control" ng-model="to">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col">
+                                            <a ng-click="sortType = 'description'; sortReverse = !sortReverse" class="pointer"></a>
+                                            Description
+                                            <span ng-show="sortType == 'description' && !sortReverse" class="fa fa-caret-down"></span>
+                                            <span ng-show="sortType == 'description' && sortReverse" class="fa fa-caret-up"></span>
+                                            </a>
+                                        </th>
+                                        <th scope="col">
+                                            <a ng-click="sortType = 'amount'; sortReverse = !sortReverse" class="pointer">
+                                                Amount
+                                                <span ng-show="sortType == 'amount' && !sortReverse" class="fa fa-caret-down"></span>
+                                                <span ng-show="sortType == 'amount' && sortReverse" class="fa fa-caret-up"></span>
+                                            </a>
+                                        </th>
+                                        <th scope="col">
+                                            <a ng-click="sortType = 'payment_type'; sortReverse = !sortReverse" class="pointer">
+                                                Payment Type
+                                                <span ng-show="sortType == 'payment_type' && !sortReverse" class="fa fa-caret-down"></span>
+                                                <span ng-show="sortType == 'payment_type' && sortReverse" class="fa fa-caret-up"></span>
+                                            </a>
+                                        </th>
+                                        <th scope="col">
+                                            <a ng-click="sortType = 'date'; sortReverse = !sortReverse" class="pointer">
+                                                Date
+                                                <span ng-show="sortType == 'date' && !sortReverse" class="fa fa-caret-down"></span>
+                                                <span ng-show="sortType == 'date' && sortReverse" class="fa fa-caret-up"></span>
+                                            </a>
+                                        </th>
+                                        <th scope="col">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="transaction in transactions | orderBy:sortType:sortReverse | filter:search | dateFilter:from:to">
+                                        <td>
+                                            <a ng-href="/#!/transaction-edit/{{transaction._id}}"> {{ transaction.description }} </a>
+                                        </td>
+                                        <td>{{ transaction.amount|currency:'$ ' }}</td>
+                                        <td>{{ transaction.payment_type }}</td>
+                                        <td>{{ transaction.date|date:'MM/dd/yy' }}</td>
+                                        <td align="center">
+                                            <button type="button" ng-click="delete(transaction._id)" class="btn btn-danger btn-sm" aria-label="Left Align">
+                                                <span class="fa fa-trash-o fa-lg" aria-hidden="true"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -2,7 +2,7 @@
 angular.module('poatek')
     .controller('HomeController', function ($scope, $http) {
         $scope.message = {
-            welcome: 'Welcome to PoaTek Challenge!',
+            welcome: 'Welcome to !', // PoaTek Challenge
             description: 'This is a PoaTek programming challenge, evaluating possible new collaborators.'
         };
 

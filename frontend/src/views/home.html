@@ -44,8 +44,8 @@
                 </div>
             </div>
         </div>
-        </div>
-        <div class="row mt-5">
+    </div>
+    <div class="row mt-5">
         <div class="col-sm-12">
             <div class="card">
                 <h5 class="card-header">
@@ -63,15 +63,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="transaction in transactions">
-                                <td>
-                                    <a ng-href="/#!/transaction-edit/{{transaction._id}}"> {{ transaction.description }} </a>
-                                </td>
+                            <tr ng-repeat="transaction in transactions" ng-click="edit(transaction._id)">
+                                <td>{{ transaction.description }}</td>
                                 <td>{{ transaction.amount }}</td>
                                 <td>{{ transaction.payment_type }}</td>
                                 <td>{{ transaction.date|date:'MM/dd/yy HH:mm:ss' }}</td>
                                 <td>
-                                    <button type="button" class="btn btn-danger btn-sm" aria-label="Left Align">
+                                    <button type="button" ng-click="delete(transaction._id)" class="btn btn-danger btn-sm" aria-label="Left Align">
                                         <span class="fa fa-trash-o fa-lg" aria-hidden="true"></span>
                                     </button>
                                 </td>

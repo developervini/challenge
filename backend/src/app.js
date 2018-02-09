@@ -63,4 +63,8 @@ app.put('/:controller/:id', function (req, res) {
     req.controller.edit(req, res)
 })
 
+app.delete('/:controller/:id', function (req, res) {
+    req.controller.delete(req, res)
+})
+
 module.exports = app
