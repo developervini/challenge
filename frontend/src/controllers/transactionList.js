@@ -1,38 +1,25 @@
 
 angular.module('poatek')
-    .controller('TransactionListController', function ($scope, $http, $window) {
+    .controller('TransactionListController', function ($scope, httpPoatek, $window) {
 
-        $scope.sortType = 'description';
+        $scope.sortType = '';
         $scope.sortReverse = false;
 
         $scope.from = new Date();
         $scope.from.setMonth($scope.from.getMonth() - 1);
         $scope.to = new Date();
 
-        var config = {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': localStorage.getItem('currentUser')
-
-            }
+        $scope.list = () => {
+            httpPoatek.get('transaction', (data) => {
+                if (data.transactions.length > 0) {
+                    $scope.transactions = data.transactions;
+                } else {
+                    $scope.transactions = 'Not found results';
+                }
+            })
         }
 
-        $scope.list = function () {
-            $http.get('http://localhost:3000/transaction', config).then(
-                function (response) {
-                    if (response.data.transactions.length > 0) {
-                        $scope.transactions = response.data.transactions;
-                    } else {
-                        $scope.transactions = 'Not found results';
-                    }
-                },
-                function (error) {
-                    swal('Error', error, 'danger');
-
-                });
-        }
-
-        $scope.delete = function (id) {
+        $scope.delete = (id) => {
             swal({
                 text: "Are you sure?",
                 icon: "warning",
@@ -41,20 +28,12 @@ angular.module('poatek')
             }).then((willDelete) => {
                 if (willDelete) {
                     if (id) {
-                        $http.delete('http://localhost:3000/transaction/' + id, config).then(
-                            function (response) {
-                                swal('Success', response.data.msg, 'success').then(
-                                    function () {
-                                        $scope.list();
-                                    });
-                            },
-                            function (error) {
-                                swal('Error', error, 'error').then(
-                                    function () {
-                                        $scope.transaction = {};
-                                        $window.location.href = '/#!/transaction-list';
-                                    });
-                            });
+                        httpPoatek.delete('transaction/' + id, (data) => {
+                            swal('Success', data.msg, 'success').then(
+                                () => {
+                                    $scope.list();
+                                });
+                        })
                     }
                 } else {
                     swal("Canceled", {

@@ -6,7 +6,7 @@ class UserController {
     login(req, res) {
         User.findOne({ username: req.body.username, password: req.body.password }, (error, user) => {
             if (error)
-                res.status(500).json({ error: error })
+                res.json({ error: error })
 
             if (user) {
                 var token = jwt.encode({

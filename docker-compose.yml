@@ -8,8 +8,8 @@ services:
       - MONGODB_USERNAME=root
       - MONGODB_PASSWORD=password123
       - MONGODB_DATABASE=poatek
-    volumes:
-      - ./mongo-data:/data/db
+    #volumes:
+    #  - ./mongo-data:/data/db
     ports: 
       - 27017:27017
     networks: 

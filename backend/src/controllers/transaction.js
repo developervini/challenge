@@ -21,7 +21,7 @@ class TransactionController {
     list(req, res) {
         Transaction.find((error, transactions) => {
             if (error)
-                res.status(500).json({ error: error })
+                res.json({ error: error })
 
             if (transactions) {
                 res.json({
@@ -38,7 +38,7 @@ class TransactionController {
     create(req, res) {
         Transaction.create(req.body, function (err, transaction) {
             if (err)
-                res.status(500).json(err)
+                res.json({ error: error })
 
             res.json({
                 msg: 'Saved transaction'
@@ -49,7 +49,7 @@ class TransactionController {
     edit(req, res) {
         Transaction.findByIdAndUpdate(ObjectId(req.params.id), req.body, { new: true }, function (err, transaction) {
             if (err)
-                res.status(500).json(err)
+                res.json({ error: error })
 
             res.json({
                 msg: 'Updated transaction'
@@ -60,18 +60,18 @@ class TransactionController {
     delete(req, res) {
         Transaction.remove({ _id: ObjectId(req.params.id) }, function (err, result) {
             if (err)
-                res.status(500).json(err)
+                res.json({ error: error })
             console.log(result)
-            if(result.n > 0){
+            if (result.n > 0) {
                 res.json({
                     msg: 'Deleted transaction'
                 })
-            }else{
+            } else {
                 res.json({
                     msg: 'Not found transaction'
                 })
             }
-            
+
         });
     }
 }

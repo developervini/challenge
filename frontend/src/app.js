@@ -1,15 +1,13 @@
-'use strict';
-
-var poatek = angular.module('poatek', ['ngRoute', 'rw.moneymask', 'ngMessages']);
+let poatek = angular.module('poatek', ['ngRoute', 'rw.moneymask', 'ngMessages']);
 
 poatek.config(['$routeProvider',
-    function ($routeProvider) {
+    ($routeProvider) => {
         $routeProvider.
             when('/', {
                 templateUrl: 'src/views/login.html',
                 controller: 'AuthController',
                 resolve: {
-                    check: function (auth, $window) {
+                    check: (auth, $window) => {
                         if (auth.auth()) {
                             $window.location.href = '/#!/home';
                         }
@@ -20,7 +18,7 @@ poatek.config(['$routeProvider',
                 templateUrl: 'src/views/home.html',
                 controller: 'HomeController',
                 resolve: {
-                    check: function (auth, $window) {
+                    check: (auth, $window) => {
                         if (!auth.auth()) {
                             $window.location.href = '/#!/';
                         }
@@ -31,7 +29,7 @@ poatek.config(['$routeProvider',
                 templateUrl: 'src/views/transactionList.html',
                 controller: 'TransactionListController',
                 resolve: {
-                    check: function (auth, $window) {
+                    check: (auth, $window) => {
                         if (!auth.auth()) {
                             $window.location.href = '/#!/';
                         }
@@ -42,7 +40,7 @@ poatek.config(['$routeProvider',
                 templateUrl: 'src/views/transactionForm.html',
                 controller: 'TransactionFormController',
                 resolve: {
-                    check: function (auth, $window) {
+                    check: (auth, $window) => {
                         if (!auth.auth()) {
                             $window.location.href = '/#!/';
                         }
@@ -53,7 +51,7 @@ poatek.config(['$routeProvider',
                 templateUrl: 'src/views/transactionForm.html',
                 controller: 'TransactionFormController',
                 resolve: {
-                    check: function (auth, $window) {
+                    check: (auth, $window) => {
                         if (!auth.auth()) {
                             $window.location.href = '/#!/';
                         }
@@ -62,7 +60,7 @@ poatek.config(['$routeProvider',
             })
             .when('/logoff', {
                 resolve: {
-                    logoff: function ($window) {
+                    logoff: ($window) => {
                         localStorage.removeItem('currentUser');
                         $window.location.href = '/#!/home';
                     }
@@ -76,9 +74,9 @@ poatek.config(['$routeProvider',
 
 // https://ciphertrick.com/2014/12/14/check-condition-before-loading-route-in-angular-js/
 
-poatek.factory('auth', function () {
+poatek.factory('auth', () => {
     return {
-        auth: function () {
+        auth: () => {
             if (localStorage.getItem('currentUser')) {
                 return true;
             } else {
@@ -91,14 +89,19 @@ poatek.factory('auth', function () {
 
 // https://stackoverflow.com/questions/34415617/how-to-filter-data-by-date-range-in-angularjs
 
-poatek.filter("dateFilter", function () {
+poatek.filter("dateFilter", () => {
     return function datefilter(items, from, to) {
-        var result = [];
-        angular.forEach(items, function (value) {
-            if (Date.parse(value.date) > Date.parse(from) && Date.parse(to) > Date.parse(value.date)) {
-                result.push(value);
-            }
-        });
-        return result;
+        let result = [];
+        if (from && to) {
+            angular.forEach(items, (value) => {
+                if (Date.parse(value.date) > Date.parse(from) && Date.parse(to) > Date.parse(value.date)) {
+                    result.push(value);
+                }
+            });
+            return result;
+        } else {
+            return items;
+        }
+
     };
 });
