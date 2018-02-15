@@ -3,6 +3,7 @@ services:
   # Service for database with MongoDB
   mongodb-poatek:
     image: mongo
+    restart: always
     container_name: mongodb-poatek
     ports: 
       - 27017:27017
@@ -11,12 +12,13 @@ services:
   # Service for backend with NodeJs
   backend-poatek:
     image: node
+    restart: always
     container_name: backend-poatek
     volumes:
       - ./backend:/usr/src/app
     working_dir: /usr/src/app
     command: bash -c "npm install && npm start"
-    depends_on: 
+    depends_on:
       - mongodb-poatek
     ports: 
       - 3000:3000
@@ -25,13 +27,12 @@ services:
   # Service for frontend with AngularJs
   frontend-poatek:
     image: node
+    restart: always
     container_name: frontend-poatek
     volumes:
       - ./frontend:/usr/src/app
     working_dir: /usr/src/app
     command: bash -c "npm install && npm start"
-    depends_on: 
-      - backend-poatek
     ports: 
       - 80:80
     networks: 
