@@ -13,7 +13,7 @@ Windows 10 Pro:
 
 Clone or download the project, in root directory of the project execute this command:
 
-`docker-compose up -d`
+`docker-compose up`
 
 ## Usage
 
