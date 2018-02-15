@@ -15,7 +15,7 @@ services:
     volumes:
       - ./backend:/usr/src/app
     working_dir: /usr/src/app
-    command: npm start
+    command: bash -c "npm install && npm start"
     depends_on: 
       - mongodb-poatek
     ports: 
@@ -29,7 +29,7 @@ services:
     volumes:
       - ./frontend:/usr/src/app
     working_dir: /usr/src/app
-    command: npm start
+    command: bash -c "npm install && npm start"
     depends_on: 
       - backend-poatek
     ports: 
