@@ -4,12 +4,6 @@ services:
   mongodb-poatek:
     image: mongo
     container_name: mongodb-poatek
-    environment:
-      - MONGODB_USERNAME=root
-      - MONGODB_PASSWORD=password123
-      - MONGODB_DATABASE=poatek
-    #volumes:
-    #  - ./mongo-data:/data/db
     ports: 
       - 27017:27017
     networks: 

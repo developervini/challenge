@@ -41,10 +41,7 @@
                         <div class="form-row" ng-if="!transaction._id">
                             <div class="form-group col-md-6">
                                 <label>Date</label>
-                                <input type="date" class="form-control" ng-model="transaction.date" name="date" ng-value="dateNow" required/>
-                                <div ng-messages="form.date.$error">
-                                    <div ng-message="required" class="text-danger">This field is required</div>
-                                </div>
+                                <input type="date" class="form-control" ng-model="transaction.date" name="date" ng-value="dateNow"/>
                             </div>
                         </div>
                         <div class="form-row">
