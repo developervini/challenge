@@ -36,29 +36,29 @@
                                         <th scope="col">
                                             <a ng-click="sortType = 'description'; sortReverse = !sortReverse" class="pointer">
                                                 Description
-                                                <span ng-show="sortType == 'description' && !sortReverse" class="fa fa-caret-down"></span>
-                                                <span ng-show="sortType == 'description' && sortReverse" class="fa fa-caret-up"></span>
+                                                <span ng-show="sortType == 'description' && !sortReverse" class="fa fa-caret-up"></span>
+                                                <span ng-show="sortType == 'description' && sortReverse" class="fa fa-caret-down"></span>
                                             </a>
                                         </th>
                                         <th scope="col">
                                             <a ng-click="sortType = 'amount'; sortReverse = !sortReverse" class="pointer">
                                                 Amount
-                                                <span ng-show="sortType == 'amount' && !sortReverse" class="fa fa-caret-down"></span>
-                                                <span ng-show="sortType == 'amount' && sortReverse" class="fa fa-caret-up"></span>
+                                                <span ng-show="sortType == 'amount' && !sortReverse" class="fa fa-caret-up"></span>
+                                                <span ng-show="sortType == 'amount' && sortReverse" class="fa fa-caret-down"></span>
                                             </a>
                                         </th>
                                         <th scope="col">
                                             <a ng-click="sortType = 'payment_type'; sortReverse = !sortReverse" class="pointer">
                                                 Payment Type
-                                                <span ng-show="sortType == 'payment_type' && !sortReverse" class="fa fa-caret-down"></span>
-                                                <span ng-show="sortType == 'payment_type' && sortReverse" class="fa fa-caret-up"></span>
+                                                <span ng-show="sortType == 'payment_type' && !sortReverse" class="fa fa-caret-up"></span>
+                                                <span ng-show="sortType == 'payment_type' && sortReverse" class="fa fa-caret-down"></span>
                                             </a>
                                         </th>
                                         <th scope="col">
                                             <a ng-click="sortType = 'date'; sortReverse = !sortReverse" class="pointer">
                                                 Date
-                                                <span ng-show="sortType == 'date' && !sortReverse" class="fa fa-caret-down"></span>
-                                                <span ng-show="sortType == 'date' && sortReverse" class="fa fa-caret-up"></span>
+                                                <span ng-show="sortType == 'date' && !sortReverse" class="fa fa-caret-up"></span>
+                                                <span ng-show="sortType == 'date' && sortReverse" class="fa fa-caret-down"></span>
                                             </a>
                                         </th>
                                         <th scope="col">Actions</th>
@@ -70,10 +70,15 @@
                                             <a ng-href="/#!/transaction-edit/{{transaction._id}}"> {{ transaction.description }} </a>
                                         </td>
                                         <td>{{ transaction.amount|currency:'$ ' }}</td>
-                                        <td>{{ transaction.payment_type }}</td>
+                                        <td>{{ transaction.payment_type == 1 ? 'Credit Card' : 'Money' }}</td>
                                         <td>{{ transaction.date|date:'MM/dd/yy' }}</td>
-                                        <td align="center">
+                                        <td align="center" ng-if="currentUser.user_type == 'Manager'">
                                             <button type="button" ng-click="delete(transaction._id)" class="btn btn-danger btn-sm" aria-label="Left Align">
+                                                <span class="fa fa-trash-o fa-lg" aria-hidden="true"></span>
+                                            </button>
+                                        </td>
+                                        <td align="center" ng-if="currentUser.user_type != 'Manager'">
+                                            <button type="button" class="btn btn-danger btn-sm" aria-label="Left Align" disabled>
                                                 <span class="fa fa-trash-o fa-lg" aria-hidden="true"></span>
                                             </button>
                                         </td>

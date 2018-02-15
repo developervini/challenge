@@ -3,7 +3,7 @@ poatek.factory('httpPoatek', function ($http, $window) {
     let config = {
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': localStorage.getItem('currentUser')
+            'Authorization': localStorage.getItem('currentToken')
         }
     }
 
@@ -11,6 +11,7 @@ poatek.factory('httpPoatek', function ($http, $window) {
         if (error.status == '401') {
             swal('', error.data.msg, error.data.status);
             localStorage.removeItem('currentUser');
+            localStorage.removeItem('currentToken');
             $window.location.href = '/#!/';
         } else {
             swal('Error', error, 'danger');

@@ -18,6 +18,22 @@ class TransactionController {
         })
     }
 
+    findMany(req, res) {
+        Transaction.find(req.body, (error, transactions) => {
+            if (error)
+                res.json({ error: error })
+            if (transactions) {
+                res.json({
+                    transactions: transactions
+                })
+            } else {
+                res.json({
+                    msg: 'Not found results'
+                })
+            }
+        })
+    }
+
     list(req, res) {
         Transaction.find((error, transactions) => {
             if (error)

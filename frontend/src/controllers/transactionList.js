@@ -1,13 +1,11 @@
 
 angular.module('poatek')
-    .controller('TransactionListController', function ($scope, httpPoatek, $window) {
+    .controller('TransactionListController', function ($scope, $cookies, httpPoatek, $window) {
 
-        $scope.sortType = '';
-        $scope.sortReverse = false;
+        $scope.currentUser = $cookies.getObject('currentUser');
 
-        $scope.from = new Date();
-        $scope.from.setMonth($scope.from.getMonth() - 1);
-        $scope.to = new Date();
+        $scope.sortType = 'date';
+        $scope.sortReverse = true;
 
         $scope.list = () => {
             httpPoatek.get('transaction', (data) => {

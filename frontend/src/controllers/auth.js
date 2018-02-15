@@ -1,6 +1,6 @@
 
 angular.module('poatek')
-    .controller('AuthController', function ($scope, httpPoatek, $window) {
+    .controller('AuthController', function ($scope, $cookies, httpPoatek, $window) {
         $scope.user = {
             username: null,
             password: null
@@ -10,7 +10,8 @@ angular.module('poatek')
             if (checkFields($scope.user)) {
                 httpPoatek.post('login', $scope.user, (data) => {
                     if (data.token) {
-                        localStorage.setItem('currentUser', data.token);
+                        localStorage.setItem('currentToken', data.token);
+                        $cookies.putObject('currentUser', data.user);
                         $window.location.href = '/#!/home';
                     } else {
                         swal('Warning', data.msg, 'warning');

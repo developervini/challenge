@@ -12,67 +12,54 @@
         <div class="col-sm-12">
             <div class="card">
                 <h5 class="card-header">
-                    Current day
+                    Last Transactions
                 </h5>
                 <div class="card-body">
                     <table class="table table-bordered">
                         <thead class="thead-light">
                             <tr>
-                                <th scope="col">Description</th>
-                                <th scope="col">Amount</th>
-                                <th scope="col">Payment Type</th>
-                                <th scope="col">Date</th>
-                                <th scope="col">Actions</th>
+                                <th scope="col">
+                                    <a ng-click="sortType = 'description'; sortReverse = !sortReverse" class="pointer">
+                                        Description
+                                        <span ng-show="sortType == 'description' && !sortReverse" class="fa fa-caret-up"></span>
+                                        <span ng-show="sortType == 'description' && sortReverse" class="fa fa-caret-down"></span>
+                                    </a>
+                                </th>
+                                <th scope="col">
+                                    <a ng-click="sortType = 'amount'; sortReverse = !sortReverse" class="pointer">
+                                        Amount
+                                        <span ng-show="sortType == 'amount' && !sortReverse" class="fa fa-caret-up"></span>
+                                        <span ng-show="sortType == 'amount' && sortReverse" class="fa fa-caret-down"></span>
+                                    </a>
+                                </th>
+                                <th scope="col">
+                                    <a ng-click="sortType = 'payment_type'; sortReverse = !sortReverse" class="pointer">
+                                        Payment Type
+                                        <span ng-show="sortType == 'payment_type' && !sortReverse" class="fa fa-caret-up"></span>
+                                        <span ng-show="sortType == 'payment_type' && sortReverse" class="fa fa-caret-down"></span>
+                                    </a>
+                                </th>
+                                <th scope="col">
+                                    <a ng-click="sortType = 'date'; sortReverse = !sortReverse" class="pointer">
+                                        Date
+                                        <span ng-show="sortType == 'date' && !sortReverse" class="fa fa-caret-up"></span>
+                                        <span ng-show="sortType == 'date' && sortReverse" class="fa fa-caret-down"></span>
+                                    </a>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="transaction in transactions">
-                                <td>
-                                    <a ng-href="/#!/transaction-edit/{{transaction._id}}"> {{ transaction.description }} </a>
-                                </td>
-                                <td>{{ transaction.amount }}</td>
-                                <td>{{ transaction.payment_type }}</td>
-                                <td>{{ transaction.date|date:'MM/dd/yy HH:mm:ss' }}</td>
-                                <td>
-                                    <button type="button" class="btn btn-danger btn-sm" aria-label="Left Align">
-                                        <span class="fa fa-trash-o fa-lg" aria-hidden="true"></span>
-                                    </button>
-                                </td>
+                            <tr ng-repeat="transaction in transactions | orderBy:sortType:sortReverse | filter:search">
+                                <td>{{ transaction.description }} </td>
+                                <td>{{ transaction.amount|currency:'$ ' }}</td>
+                                <td>{{ transaction.payment_type == 1 ? 'Credit Card' : 'Money' }}</td>
+                                <td>{{ transaction.date|date:'MM/dd/yy' }}</td>
                             </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row mt-5">
-        <div class="col-sm-12">
-            <div class="card">
-                <h5 class="card-header">
-                    Last 30 days
-                </h5>
-                <div class="card-body">
-                    <table class="table table-bordered">
-                        <thead class="thead-light">
                             <tr>
-                                <th scope="col">Description</th>
-                                <th scope="col">Amount</th>
-                                <th scope="col">Payment Type</th>
-                                <th scope="col">Date</th>
-                                <th scope="col">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="transaction in transactions" ng-click="edit(transaction._id)">
-                                <td>{{ transaction.description }}</td>
-                                <td>{{ transaction.amount }}</td>
-                                <td>{{ transaction.payment_type }}</td>
-                                <td>{{ transaction.date|date:'MM/dd/yy HH:mm:ss' }}</td>
-                                <td>
-                                    <button type="button" ng-click="delete(transaction._id)" class="btn btn-danger btn-sm" aria-label="Left Align">
-                                        <span class="fa fa-trash-o fa-lg" aria-hidden="true"></span>
-                                    </button>
-                                </td>
+                                <td>Total</td>
+                                <td>{{ getTotal()|currency:'$ ' }}</td>
+                                <td></td>
+                                <td></td>
                             </tr>
                         </tbody>
                     </table>

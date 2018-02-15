@@ -1,4 +1,4 @@
-let poatek = angular.module('poatek', ['ngRoute', 'rw.moneymask', 'ngMessages']);
+let poatek = angular.module('poatek', ['ngRoute', 'rw.moneymask', 'ngMessages', 'ngCookies']);
 
 poatek.config(['$routeProvider',
     ($routeProvider) => {
@@ -51,9 +51,13 @@ poatek.config(['$routeProvider',
                 templateUrl: 'src/views/transactionForm.html',
                 controller: 'TransactionFormController',
                 resolve: {
-                    check: (auth, $window) => {
+                    check: (auth, $window, $cookies) => {
                         if (!auth.auth()) {
                             $window.location.href = '/#!/';
+                        }else if($cookies.getObject('currentUser').user_type != 'Manager'){
+                            swal('Warning', 'You do not have permission', 'warning').then(()=>{
+                                $window.location.href = '/#!/transaction-list';
+                            });
                         }
                     }
                 }
@@ -61,7 +65,7 @@ poatek.config(['$routeProvider',
             .when('/logoff', {
                 resolve: {
                     logoff: ($window) => {
-                        localStorage.removeItem('currentUser');
+                        localStorage.removeItem('currentToken');
                         $window.location.href = '/#!/home';
                     }
                 }
@@ -77,7 +81,7 @@ poatek.config(['$routeProvider',
 poatek.factory('auth', () => {
     return {
         auth: () => {
-            if (localStorage.getItem('currentUser')) {
+            if (localStorage.getItem('currentToken')) {
                 return true;
             } else {
                 return false;

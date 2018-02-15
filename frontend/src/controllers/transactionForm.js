@@ -1,6 +1,6 @@
 
 angular.module('poatek')
-    .controller('TransactionFormController', function ($scope, httpPoatek, $window, $routeParams) {
+    .controller('TransactionFormController', function ($scope, httpPoatek, $window, $routeParams, $filter) {
         $scope.save = () => {
             if ($routeParams.id) {
                 httpPoatek.put('transaction/' + $scope.transaction._id, $scope.transaction, (data) => {
@@ -45,5 +45,6 @@ angular.module('poatek')
             $scope.find($routeParams.id);
         } else {
             $scope.message = 'Add Transaction';
+            $scope.dateNow = $filter('date')(Date.now(), 'yyyy-MM-dd');
         }
     });

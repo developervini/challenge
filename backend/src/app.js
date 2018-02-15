@@ -51,6 +51,10 @@ app.get('/:controller', function (req, res) {
     req.controller.list(req, res)
 })
 
+app.post('/:controller/filters', function (req, res) {
+    req.controller.findMany(req, res)
+})
+
 app.post('/:controller', function (req, res) {
     req.controller.create(req, res)
 })
