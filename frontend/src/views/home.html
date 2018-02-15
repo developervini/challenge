@@ -48,8 +48,8 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr ng-repeat="transaction in transactions | orderBy:sortType:sortReverse | filter:search">
+                        <tbody ng-show="show">
+                            <tr ng-repeat="transaction in transactions | orderBy:sortType:sortReverse | filter:search track by $index">
                                 <td>{{ transaction.description }} </td>
                                 <td>{{ transaction.amount|currency:'$ ' }}</td>
                                 <td>{{ transaction.payment_type == 1 ? 'Credit Card' : 'Money' }}</td>
@@ -60,6 +60,11 @@
                                 <td>{{ getTotal()|currency:'$ ' }}</td>
                                 <td></td>
                                 <td></td>
+                            </tr>
+                        </tbody>
+                        <tbody ng-show="!show">
+                            <tr>
+                                <td colspan="4">{{ transactions }}</td>
                             </tr>
                         </tbody>
                     </table>

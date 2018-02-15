@@ -55,7 +55,7 @@ poatek.config(['$routeProvider',
                         if (!auth.auth()) {
                             $window.location.href = '/#!/';
                         }else if($cookies.getObject('currentUser').user_type != 'Manager'){
-                            swal('Warning', 'You do not have permission', 'warning').then(()=>{
+                            swal('Warning', "You don't have permission", 'warning').then(()=>{
                                 $window.location.href = '/#!/transaction-list';
                             });
                         }

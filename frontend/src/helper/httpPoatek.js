@@ -10,7 +10,6 @@ poatek.factory('httpPoatek', function ($http, $window) {
     function messageError(error) {
         if (error.status == '401') {
             swal('', error.data.msg, error.data.status);
-            localStorage.removeItem('currentUser');
             localStorage.removeItem('currentToken');
             $window.location.href = '/#!/';
         } else {

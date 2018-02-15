@@ -16,8 +16,10 @@ angular.module('poatek')
         httpPoatek.post('transaction/filters', { date: { '$gte': from, '$lt': to } }, (data) => {
             if (data.transactions.length > 0) {
                 $scope.transactions = data.transactions;
+                $scope.show = true;
             } else {
                 $scope.transactions = 'Not found results';
+                $scope.show = false;
             }
         })
 

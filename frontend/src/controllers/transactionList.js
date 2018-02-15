@@ -11,8 +11,10 @@ angular.module('poatek')
             httpPoatek.get('transaction', (data) => {
                 if (data.transactions.length > 0) {
                     $scope.transactions = data.transactions;
+                    $scope.show = true;
                 } else {
                     $scope.transactions = 'Not found results';
+                    $scope.show = false;
                 }
             })
         }

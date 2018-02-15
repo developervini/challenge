@@ -64,8 +64,8 @@
                                         <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr ng-repeat="transaction in transactions | orderBy:sortType:sortReverse | filter:search | dateFilter:from:to">
+                                <tbody ng-show="show">
+                                    <tr ng-repeat="transaction in transactions | orderBy:sortType:sortReverse | filter:search | dateFilter:from:to track by $index">
                                         <td>
                                             <a ng-href="/#!/transaction-edit/{{transaction._id}}"> {{ transaction.description }} </a>
                                         </td>
@@ -82,6 +82,11 @@
                                                 <span class="fa fa-trash-o fa-lg" aria-hidden="true"></span>
                                             </button>
                                         </td>
+                                    </tr>
+                                </tbody>
+                                <tbody ng-show="!show">
+                                    <tr>
+                                        <td colspan="5">{{ transactions }}</td>
                                     </tr>
                                 </tbody>
                             </table>
