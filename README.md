@@ -8,7 +8,7 @@ Clone or download the project, in root directory of the project execute this com
 
 ## Usage
 
-Users for login in application
+Users for login in application:
 
 `
 {
@@ -24,3 +24,11 @@ Users for login in application
     "user_type": "Employee"
 }
 `
+## Required
+
+Linux:
+* Docker
+* Docker Compose
+
+Windows 10 Pro:
+* Docker for Windows
